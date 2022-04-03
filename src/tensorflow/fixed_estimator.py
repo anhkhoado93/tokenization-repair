@@ -1975,7 +1975,6 @@ def _has_dataset_or_queue_runner(maybe_tensor):
 
 
 VocabInfo = warm_starting_util.VocabInfo  # pylint: disable=invalid-name
-estimator_export('estimator.VocabInfo')(VocabInfo)
 
 
 @estimator_export('estimator.WarmStartSettings')
