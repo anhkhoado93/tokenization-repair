@@ -72,6 +72,7 @@ from tensorflow.python.util import compat_internal
 from tensorflow.python.util import function_utils
 from tensorflow.python.util import nest
 from tensorflow.python.util.tf_export import estimator_export
+from tensorflow.python.saved_model.model_utils import export_utils
 
 
 _VALID_MODEL_FN_ARGS = set(
@@ -972,8 +973,9 @@ class Estimator(object):
       ValueError: if `save_variables` is `True` and `check_variable` is `False`.
     """
     # pylint: enable=line-too-long
+    
     if export_tags is None:
-      export_tags = model_fn_lib.EXPORT_TAG_MAP[mode]
+      export_tags = export_utils.EXPORT_TAG_MAP[mode]
     input_receiver_fn = input_receiver_fn_map[mode]
 
     with ops.Graph().as_default() as g:
@@ -989,7 +991,7 @@ class Estimator(object):
           mode=mode,
           config=self.config)
 
-      export_outputs = model_fn_lib.export_outputs_for_mode(
+      export_outputs = export_utils.export_outputs_for_mode(
           mode=estimator_spec.mode,
           serving_export_outputs=estimator_spec.export_outputs,
           predictions=estimator_spec.predictions,
